@@ -14,7 +14,8 @@ class PicturesController < ApplicationController
   def create
     @picture = Picture.new(picture_params)
     if @picture.save
-      redirect_to pictures_url
+      redirect_to picture_path(@picture.id)
+      # pictures_url
     else
       render :new
     # render :text => "Saving a picture. URL: #{params[:url]}, Title: #{params[:title]}, Artist: #{params[:artist]}"
@@ -28,7 +29,7 @@ class PicturesController < ApplicationController
   def update
     @picture = Picture.find(params[:id])
     if @picture.update_attributes(picture_params)
-      redirect_to "/pictures/#{@picture.id}"
+      redirect_to picture_path(@picture.id)
     else
       render :edit
     end
@@ -37,7 +38,7 @@ class PicturesController < ApplicationController
   def destroy
     @picture = Picture.find(params[:id])
     @picture.destroy
-    redirect_to pictures_url
+    redirect_to pictures_path
   end
 
   private
